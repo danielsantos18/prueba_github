@@ -17,19 +17,19 @@ export class CreatePage implements OnInit {
     this.taskForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      done: [false]
+      done: [true],
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('Ejemplo pull request');
+  }
 
   addTask() {
     this.submitted = true;
-
     if (this.taskForm.invalid) {
       return;
     }
-
     const newTask = this.taskForm.value;
     this.tasks.push(newTask);
     this.taskForm.reset({ done: false });
