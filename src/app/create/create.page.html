@@ -1,0 +1,61 @@
+<!-- src/app/create/create.page.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Task Manager
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="addTask()" [formGroup]="taskForm">
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input formControlName="title"></ion-input>
+    </ion-item>
+    <ion-text *ngIf="taskForm.get('title')?.invalid && (taskForm.get('title')?.touched || submitted)">
+      <ion-note color="danger" *ngIf="taskForm.get('title')?.errors?.['required']">
+        Title es requerido.
+      </ion-note>
+      <ion-note color="danger" *ngIf="taskForm.get('title')?.errors?.['minlength']">
+        Title debe tener minimo 3 caracteres.
+      </ion-note>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input formControlName="description"></ion-input>
+    </ion-item>
+    <ion-text *ngIf="taskForm.get('description')?.invalid && (taskForm.get('description')?.touched || submitted)">
+      <ion-note color="danger" *ngIf="taskForm.get('description')?.errors?.['required']">
+        Description es requerido.
+      </ion-note>
+      <ion-note color="danger" *ngIf="taskForm.get('description')?.errors?.['minlength']">
+        Description debe tener minimo 10 caracteres.
+      </ion-note>
+    </ion-text>
+
+    <ion-item>
+      <ion-label>Done</ion-label>
+      <ion-checkbox formControlName="done"></ion-checkbox>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Add Task</ion-button>
+  </form>
+
+  <ion-list>
+    <ion-item *ngIf="tasks.length === 0">
+      <ion-label>Sin tareas disponibles</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let task of tasks; let i = index" [ngClass]="{ 'task-done': task.done }" (click)="toggleTask(i)">
+      <ion-label>
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.description }}</p>
+        <ion-chip [color]="task.done ? 'success' : 'danger'">
+          <ion-label>{{ task.done ? 'Completado' : 'Pendiente' }}</ion-label>
+        </ion-chip>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

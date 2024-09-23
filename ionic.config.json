@@ -1,0 +1,7 @@
+{
+  "name": "form-task-apk",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
