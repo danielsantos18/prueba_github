@@ -17,7 +17,7 @@ export class CreatePage implements OnInit {
     this.taskForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      done: [true],
+      done: [false]
     });
   }
 
